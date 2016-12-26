@@ -1,0 +1,1 @@
+Learning Django with https://www.ultimatedjango.com/learn-django/
