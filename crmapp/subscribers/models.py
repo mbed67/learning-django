@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
+
+import stripe
 
 class Subscriber(models.Model):
     user_rec = models.ForeignKey(User)
@@ -14,3 +17,22 @@ class Subscriber(models.Model):
 
     def __unicode__(self):
         return u"%s's Subscription Info" % self.user_rec
+
+    def charge(self, request, email, fee):
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        token = request.POST['stripeToken']
+
+        stripe_customer = stripe.Customer.create(
+            card=token,
+            description=email
+        )
+
+        self.stripe_id = stripe_customer.id
+        self.save()
+
+        stripe.Charge.create(
+            amount=fee,  # in cents
+            currency='usd',
+            customer=stripe_customer.id
+        )
