@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Subscriber
 
-class AddressMixin(forms.ModelForm)
+class AddressMixin(forms.ModelForm):
     class Meta:
         model = Subscriber
         fields = ('address_one', 'address_two', 'city', 'state',)
