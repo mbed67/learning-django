@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from marketing.views import HomePage
+from accounts.views import AccountList
 
 admin.autodiscover()
 
@@ -19,6 +20,7 @@ urlpatterns = patterns('',
     (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/login/'}),
 
     # Account related URLs
+    url(r'^account/list/$', AccountList.as_view(), name='account_list'),
 
     # Contact related URLS
 
