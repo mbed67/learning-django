@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/login/'}),
 
     # Account related URLs
+    url(r'^account/news/$', 'crmapp.accounts.views.account_cru', name='account_new'),
     url(r'^account/list/$', AccountList.as_view(), name='account_list'),
     url(r'^account/(?P<uuid>[\w-]+)/', include(account_urls)),
 
